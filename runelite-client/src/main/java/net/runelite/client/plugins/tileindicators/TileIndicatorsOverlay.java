@@ -75,6 +75,7 @@ public class TileIndicatorsOverlay extends Overlay
 			// If we have tile "selected" render it
 			if (client.getSelectedSceneTile() != null)
 			{
+				System.out.println(client.getSelectedSceneTile().getLocalLocation().getX() + ", " + client.getSelectedSceneTile().getLocalLocation().getY());
 				renderTile(graphics, client.getSelectedSceneTile().getLocalLocation(), EMPTY);
 			}
 		}
