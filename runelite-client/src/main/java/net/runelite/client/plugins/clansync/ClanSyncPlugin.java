@@ -178,6 +178,7 @@ public class ClanSyncPlugin extends Plugin
 		public void setTimestamp(Date timestamp) {
 			this.timestamp = timestamp;
 		}
+
 	}
 
 	class LocationResponse {
@@ -198,7 +199,7 @@ public class ClanSyncPlugin extends Plugin
 		LocationRequest request = new LocationRequest(username, world, x, y, timestamp);
 		LocationResponse result = null;
 		try {
-			String       postUrl       = "http://127.0.0.1:8000/user_location_update";// put in your url
+			String       postUrl       = "http://173.230.144.108:8000/user_location_update";// put in your url
 			Gson         gson          = new Gson();
 			HttpClient   httpClient    = HttpClientBuilder.create().build();
 			HttpPost     post          = new HttpPost(postUrl);
@@ -221,20 +222,23 @@ public class ClanSyncPlugin extends Plugin
 
 		return result;
 	}
-
 	@Subscribe
 	public void onGameTick(GameTick gameTick)
 	{
-		if (client.getGameState() == GameState.LOGGED_IN && config.showClanMembers())
-		{
-			//Send http request, and update tiles
-			LocationResponse clan_members = send_our_location(client.getLocalPlayer().getName(),
-					client.getWorld(),
-					client.getLocalPlayer().getLocalLocation().getX(),
-					client.getLocalPlayer().getLocalLocation().getY(),
-					new Date());
 
-			users = clan_members.getUsers();
+		if (client.getTickCount() % config.gameTickDelay() == 0){
+			if (client.getGameState() == GameState.LOGGED_IN && config.showClanMembers())
+			{
+				System.out.println(client.getTickCount());
+				//Send http request, and update tiles
+				LocationResponse clan_members = send_our_location(client.getLocalPlayer().getName(),
+						client.getWorld(),
+						client.getLocalPlayer().getLocalLocation().getX(),
+						client.getLocalPlayer().getLocalLocation().getY(),
+						new Date());
+
+				users = clan_members.getUsers();
+			}
 		}
 	}
 

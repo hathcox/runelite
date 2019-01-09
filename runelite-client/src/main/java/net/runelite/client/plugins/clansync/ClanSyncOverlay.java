@@ -81,6 +81,20 @@ class ClanSyncOverlay extends Overlay
 		OverlayUtil.renderPolygon(graphics, poly, color);
 	}
 
+
+	public static void renderTextLocation(Graphics2D graphics, Point txtLoc, String text, Color color)
+	{
+		int x = txtLoc.getX();
+		int y = txtLoc.getY();
+
+		graphics.setColor(Color.BLACK);
+		graphics.drawString(text, x + 1, y + 1);
+
+		graphics.setColor(color);
+		graphics.drawString(text, x, y);
+	}
+
+
 	private void renderOtherClanMembers(Graphics2D graphics, List<ClanSyncPlugin.LocationRequest> users) {
 		for (ClanSyncPlugin.LocationRequest user : users) {
 			if (!user.getUsername().equals(client.getLocalPlayer().getName())) {
@@ -92,7 +106,14 @@ class ClanSyncOverlay extends Overlay
 						user.getX(),
 						user.getY());
 
-				renderTile(graphics, p, new Color(255, 0, 0, 1) );
+//					Color WHITE = new Color(255, 251, 251);
+//					LocalPoint localPoint = client.getLocalPlayer().getLocalLocation();
+//					Point textLocation = client.getLocalPlayer().getCanvasTextLocation(graphics, String.valueOf(user.getWorld()) , 0);
+//					if (localPoint != null)
+//					{
+//						renderTextLocation(graphics, textLocation, String.valueOf(user.getWorld()) , WHITE);
+//					}
+				renderTile(graphics, p, Color.WHITE );
 			}
 		}
 	}

@@ -42,4 +42,12 @@ public interface ClanSyncConfig extends Config
 		return true;
 	}
 
+	@ConfigItem(
+			keyName = "gameTickDelay",
+			name = "Game Tick Delay",
+			description = "On what game tick should we send a request?",
+			position = 2
+	)
+	default int gameTickDelay() {return 2;}
+
 }
